@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Nunito:wght@400;600;700&display=swap');
+
+/*
+  Skill Island — site skin
+  Layered on top of src/index.css (Tailwind v4 theme tokens live there).
+  Everything in this file is self-contained: no edits to the base stylesheet.
+*/
+
+#root {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  border: 0;
+  text-align: left;
+}
+
+/* ---------------------------------------------------------------- *
+   Island shell: warm sand, soft sky at the top, paper grain overlay
+ * ---------------------------------------------------------------- */
+
+.island-shell {
+  --sand-50: var(--color-sand-50, #fdfaf3);
+  --sand-100: var(--color-sand-100, #f6efe0);
+  --sand-200: var(--color-sand-200, #ece0c9);
+  --sand-300: var(--color-sand-300, #ddcbaa);
+  --sand-400: var(--color-sand-400, #c9b287);
+  --leaf-400: var(--color-leaf-400, #7cc06f);
+  --leaf-600: var(--color-leaf-600, #3d8a3c);
+  --ocean-300: var(--color-ocean-300, #8fc7e8);
+  --ocean-400: var(--color-ocean-400, #5aa7d6);
+  --sky-300: var(--color-sky-300, #bfe3f2);
+  --mango-300: var(--color-mango-300, #f7cf7a);
+  --coral-300: var(--color-coral-300, #f7a99a);
+  --ink-500: var(--color-ink-500, #7c7365);
+  --ink-700: var(--color-ink-700, #4b4438);
+  --ink-900: var(--color-ink-900, #2b2721);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  color: var(--ink-900);
+  background-color: var(--sand-100);
+  background-image:
+    radial-gradient(1100px 520px at 12% -8%, color-mix(in srgb, var(--sky-300) 45%, transparent), transparent 62%),
+    radial-gradient(900px 460px at 88% -4%, color-mix(in srgb, var(--mango-300) 34%, transparent), transparent 58%),
+    linear-gradient(180deg, color-mix(in srgb, var(--sand-50) 85%, transparent) 0%, transparent 22rem);
+  background-attachment: fixed;
+}
+
+/* handmade paper grain — multiplied over the whole island */
+.island-shell::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------------------------------------- *
+   Shared textures & shapes
+ * ---------------------------------------------------------------- */
+
+/* dashed "handwritten note" card */
+.note-dash {
+  border: 2px dashed color-mix(in srgb, var(--sand-400) 80%, transparent);
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--sand-50) 90%, transparent),
+    color-mix(in srgb, var(--sand-100) 90%, transparent)
+  );
+}
+
+/* ticket / stamp chip */
+.stamp {
+  border: 2px dashed currentColor;
+  border-radius: 999px;
+}
+
+/* terminal-ish code panel */
+.island-code {
+  font-family: ui-monospace, 'SFMono-Regular', 'Cascadia Mono', Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  overflow-x: auto;
+  border-radius: calc(var(--radius-card, 1.25rem) * 0.72);
+  border: 2px solid var(--ink-900);
+  background: var(--ink-900);
+  color: #f3ece0;
+  padding: 0.9rem 1rem;
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink-900) 22%, transparent);
+  text-align: left;
+}
+
+.island-code .cmt {
+  color: #9db89a;
+}
+.island-code .key {
+  color: var(--mango-300, #f7cf7a);
+}
+.island-code .val {
+  color: var(--ocean-300, #8fc7e8);
+}
+.island-code .fn {
+  color: #b6e0a8;
+}
+
+/* window chrome dots for the bigger code panels */
+.code-frame {
+  border: 2px solid var(--ink-900);
+  border-radius: var(--radius-card, 1.25rem);
+  overflow: hidden;
+  background: var(--ink-900);
+  box-shadow: 6px 6px 0 color-mix(in srgb, var(--ink-900) 20%, transparent);
+}
+.code-frame > .code-frame-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.85rem;
+  background: color-mix(in srgb, var(--ink-900) 80%, #fff 20%);
+  border-bottom: 2px solid color-mix(in srgb, #fff 12%, transparent);
+}
+.code-frame > .code-frame-bar > i {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 999px;
+  display: block;
+}
+
+/* hidden scrollbar for the mobile chip rails */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------------------------------------------------------------- *
+   Interaction polish
+ * ---------------------------------------------------------------- */
+
+.island-shell a,
+.island-shell button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.island-shell :focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--leaf-600) 70%, transparent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .island-shell *,
+  .island-shell *::before,
+  .island-shell *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* slow drifting shoreline, used by the notice board + footer */
+@keyframes wave {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(28px);
+  }
+}

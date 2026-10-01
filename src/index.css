@@ -1,0 +1,302 @@
+@import "tailwindcss";
+@import "highlight.js/styles/github-dark-dimmed.css";
+
+/* ---------------------------------------------------------------------------
+   Skill Island design tokens
+   Names are stable API for the UI layer — do not rename.
+   Tailwind v4 auto-generates bg-, text-, border-, rounded-, shadow- and font-
+   prefixed utilities from these values.
+--------------------------------------------------------------------------- */
+@theme static {
+  --color-sand-50: #faf6ec;
+  --color-sand-100: #f4eddb;
+  --color-sand-200: #e9dfc6;
+  --color-sand-300: #d9c9a3;
+  --color-sand-400: #c0ac80;
+
+  --color-leaf-300: #a8de9b;
+  --color-leaf-400: #7fcb72;
+  --color-leaf-500: #5bb35c;
+  --color-leaf-600: #43924a;
+  --color-leaf-700: #2f6b3c;
+
+  --color-ocean-300: #9ed8e8;
+  --color-ocean-400: #6fc3da;
+  --color-ocean-500: #46a3c4;
+
+  --color-sky-300: #bfe6f5;
+  --color-sky-400: #95d3ec;
+
+  --color-coral-300: #ffc7b0;
+  --color-coral-400: #ffa183;
+  --color-coral-500: #f07e5c;
+
+  --color-mango-300: #ffd98e;
+  --color-mango-400: #ffc457;
+
+  --color-wood-400: #a8794f;
+  --color-wood-500: #8b5e3c;
+
+  --color-ink-500: #6b7a6e;
+  --color-ink-700: #3e4a41;
+  --color-ink-900: #22301f;
+
+  --font-display: "Baloo 2", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Nunito", "Segoe UI", system-ui, sans-serif;
+
+  --radius-card: 1.5rem;
+
+  --shadow-soft: 0 6px 0 0 rgb(0 0 0 / 0.06), 0 12px 24px -12px rgb(34 48 31 / 0.25);
+  --shadow-pop: 0 10px 0 0 rgb(0 0 0 / 0.08), 0 18px 32px -14px rgb(34 48 31 / 0.3);
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-sand-100);
+    background-image:
+      radial-gradient(1200px 600px at 50% -10%, var(--color-sky-300) 0%, transparent 60%),
+      linear-gradient(180deg, var(--color-sky-300) 0%, var(--color-sand-100) 45%, var(--color-sand-200) 100%);
+    background-attachment: fixed;
+    color: var(--color-ink-900);
+    font-family: var(--font-body);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background-color: var(--color-leaf-300);
+    color: var(--color-ink-900);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Gentle bob animation utility
+--------------------------------------------------------------------------- */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-slow {
+    animation: float 9s ease-in-out infinite;
+  }
+
+  .animate-sway {
+    animation: sway 5s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Markdown prose — rendered SKILL.md bodies (.md-body)
+--------------------------------------------------------------------------- */
+@layer components {
+  .md-body {
+    color: var(--color-ink-700);
+    font-size: 1rem;
+    line-height: 1.75;
+    overflow-wrap: anywhere;
+  }
+
+  .md-body > * + * {
+    margin-top: 1rem;
+  }
+
+  .md-body h1 {
+    margin-top: 0;
+    font-size: 1.875rem;
+    line-height: 1.2;
+    color: var(--color-ink-900);
+  }
+
+  .md-body h2 {
+    margin-top: 2rem;
+    padding-bottom: 0.35rem;
+    font-size: 1.5rem;
+    line-height: 1.25;
+    color: var(--color-ink-900);
+    border-bottom: 2px solid var(--color-sand-200);
+  }
+
+  .md-body h3 {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    color: var(--color-ink-900);
+  }
+
+  .md-body h4 {
+    margin-top: 1.25rem;
+    font-size: 1.05rem;
+    color: var(--color-ink-700);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .md-body strong {
+    color: var(--color-ink-900);
+    font-weight: 700;
+  }
+
+  .md-body ul,
+  .md-body ol {
+    padding-left: 1.4rem;
+  }
+
+  .md-body ul {
+    list-style: disc;
+  }
+
+  .md-body ol {
+    list-style: decimal;
+  }
+
+  .md-body li + li {
+    margin-top: 0.35rem;
+  }
+
+  .md-body li::marker {
+    color: var(--color-leaf-500);
+  }
+
+  .md-body a {
+    color: var(--color-ocean-500);
+    text-decoration: underline;
+    text-decoration-color: var(--color-ocean-300);
+    text-underline-offset: 3px;
+    transition: color 0.15s ease;
+  }
+
+  .md-body a:hover {
+    color: var(--color-ocean-400);
+    text-decoration-color: currentColor;
+  }
+
+  .md-body blockquote {
+    margin: 1.25rem 0;
+    padding: 0.85rem 1.15rem;
+    border-left: 5px solid var(--color-leaf-400);
+    border-radius: 0 1rem 1rem 0;
+    background-color: var(--color-sand-50);
+    color: var(--color-ink-700);
+    font-style: italic;
+  }
+
+  .md-body blockquote > * + * {
+    margin-top: 0.5rem;
+  }
+
+  .md-body hr {
+    margin: 2rem 0;
+    border: 0;
+    height: 2px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, var(--color-sand-200), var(--color-sand-300));
+  }
+
+  .md-body img {
+    border-radius: var(--radius-card);
+    border: 2px solid var(--color-sand-200);
+  }
+
+  /* Tables */
+  .md-body table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid var(--color-sand-200);
+    border-radius: 1rem;
+    background-color: var(--color-sand-50);
+    font-size: 0.95rem;
+  }
+
+  .md-body thead {
+    background-color: var(--color-sand-200);
+    color: var(--color-ink-900);
+  }
+
+  .md-body th {
+    padding: 0.6rem 0.9rem;
+    text-align: left;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .md-body td {
+    padding: 0.6rem 0.9rem;
+    border-top: 1px solid var(--color-sand-200);
+    vertical-align: top;
+  }
+
+  .md-body tbody tr:nth-child(even) {
+    background-color: rgb(255 255 255 / 0.5);
+  }
+
+  /* Code */
+  .md-body code {
+    padding: 0.15em 0.4em;
+    border-radius: 0.4rem;
+    background-color: var(--color-sand-200);
+    color: var(--color-ink-900);
+    font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+    font-size: 0.875em;
+  }
+
+  .md-body pre {
+    padding: 1rem 1.1rem;
+    overflow-x: auto;
+    border-radius: 1rem;
+    background-color: var(--color-ink-900);
+    color: var(--color-sand-100);
+    box-shadow: var(--shadow-soft);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .md-body pre code {
+    padding: 0;
+    background-color: transparent;
+    color: inherit;
+    font-size: inherit;
+  }
+}

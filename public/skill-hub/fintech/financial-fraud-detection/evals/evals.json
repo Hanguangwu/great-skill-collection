@@ -1,0 +1,47 @@
+{
+  "skill_name": "financial-fraud-detection",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm analyzing a company's financial statements and need a full fraud risk assessment. Here are their key figures: Revenue $500M (up 15% YoY), AR $180M (up 40%), Net Income $50M, CFFO $30M, CapEx $45M, Inventory $120M (up 35%), COGS $300M (up 10%). Bad debt allowance dropped from 5% to 3% of AR. CEO is also Chairman, 12-year auditor tenure. They've beaten earnings estimates for 14 consecutive quarters. Can you run the full analysis?",
+      "expected_output": "A comprehensive fraud risk report covering governance, revenue quality, expense/asset quality, and cash flow quality with specific warning signals mapped to the 13-scam taxonomy",
+      "files": [],
+      "expectations": [
+        "Report identifies DSO increase and AR/revenue growth mismatch as revenue early recognition warning (Scam 1)",
+        "Report flags the bad debt allowance decline as an expense manipulation signal (Scam 4)",
+        "Report identifies CFFO < Net Income and FCF negative as cash flow quality concerns (Scams 8-9)",
+        "Report mentions governance concerns (CEO-Chairman, consistent beat streak, long auditor tenure)",
+        "Report includes a numerical or categorical risk rating",
+        "Report maps findings to specific scam numbers (1-13)",
+        "Report uses Financial Shenanigans framework terminology (Scam numbers, categories)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Quick fraud scan needed on Company XYZ. Revenue grew 120% this year with no acquisitions. AR is 50% of revenue. They have unusually long payment terms (180 days) for customers. Operating cash flow is negative despite positive net income. CapEx suddenly doubled. No explanation given. What scams should I investigate?",
+      "expected_output": "Identification of specific financial fraud scams to investigate with supporting reasoning from the Financial Shenanigans taxonomy",
+      "files": [],
+      "expectations": [
+        "Analysis flags 120% revenue growth without M&A as suspicious (Scam 2 - fictitious revenue)",
+        "Analysis identifies long payment terms and high AR/revenue ratio as premature revenue recognition (Scam 1)",
+        "Analysis identifies negative CFFO with positive net income as cash flow warning (Scams 8-9)",
+        "Analysis flags CapEx doubling as potential improper capitalization (Scam 4/9)",
+        "Analysis maps findings to specific scam numbers from the Financial Shenanigans framework"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need you to review this company's cash flow statement. Net income was $100M, operating cash flow was $150M, but free cash flow is only $10M because CapEx was $140M (vs $50M last year). They sold $60M of receivables this year and acquired 3 companies for $80M total. Working capital changes contributed $70M to CFFO. What's going on?",
+      "expected_output": "Analysis of cash flow manipulation risks with specific scam identification and recommendations",
+      "files": [],
+      "expectations": [
+        "Analysis identifies CapEx surge as potential operating expense capitalization (Scam 9)",
+        "Analysis flags sale of receivables as unsustainable CFFO booster (Scam 10)",
+        "Analysis identifies working capital-driven CFFO as warning signal (Scam 11)",
+        "Analysis notes acquisition-adjusted FCF is deeply negative (Scam 10)",
+        "Analysis distinguishes between sustainable and unsustainable cash flow sources",
+        "Analysis maps findings to specific Scam numbers 8-11"
+      ]
+    }
+  ]
+}

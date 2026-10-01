@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <!--
+      GitHub Pages serves this file for unknown deep links (e.g. /skill/xxx).
+      It bounces the request to index.html?path=<route>, and src/main.tsx
+      rewrites history back to the real route before React mounts.
+
+      The base path is derived from this file's own URL, so it stays correct
+      automatically when the repo is renamed or the site moves to a custom
+      domain — nothing here hardcodes '/great-skill-collection/'.
+    -->
+    <script>
+      ;(function () {
+        var base = '/'
+        var self = document.currentScript
+        if (self && self.src) base = self.src.replace(/\/404\.html$/, '/')
+
+        var full = window.location.pathname + window.location.search + window.location.hash
+        var relative = full.indexOf(base) === 0 ? full.slice(base.length) : full
+        if (relative.charAt(0) !== '/') relative = '/' + relative
+
+        window.location.replace(base + 'index.html?path=' + encodeURIComponent(relative))
+      })()
+    </script>
+  </head>
+  <body>Redirecting…</body>
+</html>
